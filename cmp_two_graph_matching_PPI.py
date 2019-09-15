@@ -47,7 +47,7 @@ for i in range(5):
     time_s = time.time()
     ot_dict['outer_iteration'] = num_iter
     pairs_idx, pairs_name, pairs_confidence = GwGt.direct_graph_matching(
-        cost_s, cost_t, p_s, p_t, idx2node_s, idx2node_t, ot_dict)
+        0.5 * (cost_s + cost_s.T), 0.5 * (cost_t + cost_t.T), p_s, p_t, idx2node_s, idx2node_t, ot_dict)
     runtime = time.time() - time_s
     nc = Eval.calculate_node_correctness(pairs_name, num_correspondence=num_nodes)
     print('method: gwl, duration {:.4f}s, nc {:.4f}.'.format(runtime, nc))
@@ -57,7 +57,7 @@ for i in range(5):
     time_s = time.time()
     ot_dict['outer_iteration'] = num_iter
     pairs_idx, pairs_name, pairs_confidence = GwGt.recursive_direct_graph_matching(
-        cost_s, cost_t, p_s, p_t, idx2node_s, idx2node_t, ot_dict,
+        0.5 * (cost_s + cost_s.T), 0.5 * (cost_t + cost_t.T), p_s, p_t, idx2node_s, idx2node_t, ot_dict,
         weights=None, predefine_barycenter=False, cluster_num=2,
         partition_level=3, max_node_num=0)
     runtime = time.time() - time_s
